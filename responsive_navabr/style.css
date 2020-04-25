@@ -1,0 +1,142 @@
+/* GENERIC SETUP */
+
+* {
+    box-sizing: border-box;
+}
+
+/* FONT DEFINITION */
+
+@font-face {
+    font-family: 'patua_oneregular';
+    src: url('fonts/patuaone-regular-webfont.woff2') format('woff2'),
+    url('fonts/patuaone-regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* DEFINITIONS COMMON TO ALL SCREEN SIZES */
+
+body {
+    margin: 0;
+}
+
+.container {
+    display: grid;
+    align-items: stretch;
+    height: 100vh;
+}
+
+.nav {
+    background-color: #000;
+    width: 100%;
+    color: white;
+    display: grid;
+    align-items: center;
+    grid-template-rows: 100%; /* With this we prevent the row from expanding beyond the height of the parent container */
+}
+
+.nav__items {
+    list-style: none;
+}
+
+.nav__item {
+    font-family: "patua_oneregular";
+    border-color: white;
+    border-style: solid;
+    color: white;
+    background-color: #212020;
+}
+
+/* MOBILE */
+
+@media only screen and (max-width: 769px) {
+
+    .container {
+        grid-template-rows: 15%;
+    }
+
+    .nav {
+        grid-template-columns: 30% auto 20%;
+    }
+
+    .nav__items {
+        visibility: hidden;
+        transform: translateX(-80px);
+        transition: transform 100ms linear, visibility 100ms linear;
+        align-self: start; /* Force the items column to begin at the start of the row */
+    }
+
+    .nav__items--show {
+        visibility: visible;
+        grid-row-end: auto;
+        transform: translateX(0);
+    }
+
+    .nav__item {
+        border-width: 0.05em 0.1em 0.05em 0.1em;
+        grid-column-start: 1;
+        height: 50px;
+    }
+
+    .nav__item__text {
+        height: 50px;
+        line-height: 50px; /* Magic way to align text vertically */
+        text-align: center;
+
+    }
+
+
+    .nav__hamburger {
+        grid-column-start: -1;
+        background-color: #FFF;
+        height: 50px;
+        width: 50px;
+        border-color: #FFF;
+        border-width: 1px;
+        border-style: solid;
+        border-radius: 5px;
+        justify-self: center;
+    }
+
+    .nav__hamburger > img {
+        max-height: 100%;
+        max-width: 100%;
+    }
+
+}
+
+/* DESKTOP */
+
+@media only screen and (min-width: 769px) {
+
+    .container {
+        grid-template-rows: 10%;
+    }
+
+    .nav__items {
+        height: 100%;
+        display: grid; /* Force elements in a row */
+        grid-template-columns: repeat(10, 10%);
+        align-items: stretch; /* Make child height 100% of parent */
+    }
+
+    .nav__item {
+        display: flex; /* Align content correctly. Can't align stretch and center so need to style child. */
+        align-items: center;
+        justify-content: center;
+        border-width: 0 1px 0 0;
+        border-right-color: white;
+        border-right-style: solid;
+        background-color: #000;
+    }
+
+    .nav__item:hover {
+        background-color: #212020;
+        cursor: pointer;
+    }
+
+    .nav__hamburger {
+        display: none;
+    }
+
+}
